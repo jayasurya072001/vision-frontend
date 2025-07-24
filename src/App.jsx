@@ -9,7 +9,7 @@ import TeamPage from "./pages/TeamPage";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -19,7 +19,7 @@ function App() {
         <Route path="/labelling" element={<Labelling />} />
         <Route path="/team" element={<TeamPage />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
