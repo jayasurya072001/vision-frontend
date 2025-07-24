@@ -2,7 +2,8 @@ import api from "./api";
 
 export const fetchModelsWithVersions = async () => {
   try {
-    const response = await api.get("/models");
+    const response = await api.get("/models/all");
+    // console.log(response);
     const models = response.data.models || [];
 
     const grouped = models.reduce((acc, item) => {
