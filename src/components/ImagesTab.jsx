@@ -53,12 +53,7 @@ export default function ImagesTab({ model, filterTag = [] }) {
   const pageSize = calculatePageSize(screens);
 
   function calculatePageSize(screens) {
-    if (screens.xxl) return 24;
-    if (screens.xl) return 20;
-    if (screens.lg) return 16;
-    if (screens.md) return 12;
-    if (screens.sm) return 8;
-    return 4;
+    return 8;
   }
 
   const handleCardClick = async (

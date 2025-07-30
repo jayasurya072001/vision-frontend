@@ -132,6 +132,11 @@ export default function Labelling() {
     fetchData();
   }, [model]);
 
+  const handleModelChange = (value) => {
+    setModel(value);
+    // You might want to fetch data here when model changes
+  };
+
   const handleScroll = useCallback(() => {
     if (loadingRef.current || !hasMore) return;
 
@@ -271,7 +276,7 @@ export default function Labelling() {
           {/* <ModelDropdown value={model} onChange={setModel} /> */}
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={12} md={6}>
-              <ModelDropdown value={model} onChange={setModel} />
+              <ModelDropdown value={model} onChange={handleModelChange} />
             </Col>
             <Col xs={24} sm={12} md={6}>
               <Button
