@@ -33,7 +33,7 @@ export const fetchItemsOfTags = async (
 };
 
 export const fetchImageDetails = async (id) => {
-  const res = await api.get(`/predictions?input_id=${id}`);
+  const res = await api.get(`/predictions/details?input_id=${id}`);
   return res.data;
 };
 
