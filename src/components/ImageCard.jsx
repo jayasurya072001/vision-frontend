@@ -139,8 +139,8 @@ function ImageCard({ image, onPreview, onCardClick }) {
           <div
             style={{
               marginBottom: 4,
-              maxHeight: 60, // Constrain height
-              overflow: "hidden", // Hide overflow without scroll
+              maxHeight: 60,
+              overflow: "hidden",
             }}
           >
             <Text strong style={{ fontSize: 12, display: "block" }}>
@@ -156,10 +156,24 @@ function ImageCard({ image, onPreview, onCardClick }) {
                 lineHeight: 1.2,
               }}
             >
-              {expected_tags.map((tag) => (
+              {/* Show only the first tag */}
+              <Tag
+                key={expected_tags[0]}
+                color="blue"
+                style={{
+                  fontSize: 11,
+                  padding: "1px 4px",
+                  margin: 0,
+                  flexShrink: 0,
+                }}
+              >
+                {expected_tags[0]}
+              </Tag>
+
+              {/* Show ellipsis if there are more tags */}
+              {expected_tags.length > 1 && (
                 <Tag
-                  key={tag}
-                  color="blue"
+                  color="default"
                   style={{
                     fontSize: 11,
                     padding: "1px 4px",
@@ -167,9 +181,9 @@ function ImageCard({ image, onPreview, onCardClick }) {
                     flexShrink: 0,
                   }}
                 >
-                  {tag}
+                  ...
                 </Tag>
-              ))}
+              )}
             </div>
           </div>
         )}

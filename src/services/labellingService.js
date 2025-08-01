@@ -32,6 +32,16 @@ export const fetchItemsOfTags = async (
   return response.data;
 };
 
+export const fetchImageOnId = async (imageId) => {
+  try {
+    const response = await api.get(`/inputs/${imageId}`);
+    return response.data;
+  } catch (err) {
+    console.log("Failed to fetch ", err);
+    throw err;
+  }
+};
+
 export const fetchImageDetails = async (id) => {
   const res = await api.get(`/predictions/details?input_id=${id}`);
   return res.data;

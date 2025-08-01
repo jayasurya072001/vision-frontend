@@ -218,7 +218,7 @@ export default function Regression({ model }) {
           total: total,
         }}
         onChange={handleTableChange}
-        scroll={{ x: "max-content" }}
+        scroll={{ x: "max-content", y: 400 }}
       />
     </div>
   );

@@ -260,7 +260,7 @@ export default function NotFixedStatus({ model, showAssignedColumn = false }) {
           total: total,
         }}
         onChange={handleTableChange}
-        scroll={{ x: "max-content" }}
+        scroll={{ x: "max-content", y: 400 }}
       />
     </div>
   );

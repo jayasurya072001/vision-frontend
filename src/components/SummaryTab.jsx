@@ -75,6 +75,7 @@ export default function SummaryTab({ model, onTagClick }) {
               { title: "Not Regressed", dataIndex: "not_regressed" },
             ]}
             style={{ color: "#fff" }}
+            scroll={{ x: "max-content", y: 400 }}
           />
 
           <Divider style={{ backgroundColor: "#333" }} />

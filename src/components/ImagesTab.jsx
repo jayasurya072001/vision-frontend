@@ -13,6 +13,7 @@ import {
   Tag,
   Button,
   Space,
+  Input,
 } from "antd";
 import {
   ZoomInOutlined,
@@ -20,11 +21,13 @@ import {
   FullscreenExitOutlined,
   DownloadOutlined,
   EditOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import { useEffect, useState, useCallback } from "react";
 import {
   fetchItemsOfTags,
   fetchImageDetails,
+  fetchImageOnId,
 } from "../services/labellingService";
 
 import PredictionDetailsCard from "./PredictionDetailsCard";
@@ -51,6 +54,7 @@ export default function ImagesTab({ model, filterTag = [] }) {
 
   const screens = useBreakpoint();
   const pageSize = calculatePageSize(screens);
+  const [searchId, setSearchId] = useState("");
 
   function calculatePageSize(screens) {
     return 8;
@@ -98,6 +102,37 @@ export default function ImagesTab({ model, filterTag = [] }) {
     }
   }, [model, currentPage, filterTag, pageSize]);
 
+  const fetchImageById = async () => {
+    if (!searchId.trim()) return;
+    setLoading(true);
+
+    try {
+      const data = await fetchImageOnId(searchId);
+      setImages(data ? [data] : []);
+      setTotalCount(0);
+    } catch (err) {
+      message.error("Failed to fetch");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!searchId.trim()) return;
+
+    const timer = setTimeout(() => {
+      fetchImageById();
+    }, 2000); // debounce delay: 2 seconds
+
+    return () => clearTimeout(timer); // clear on re-type
+  }, [searchId]);
+
+  useEffect(() => {
+    if (searchId.trim() === "") {
+      fetchImages(); // or whatever function loads the full list
+    }
+  }, [searchId]);
+
   useEffect(() => {
     fetchImages();
   }, [fetchImages]);
@@ -134,6 +169,29 @@ export default function ImagesTab({ model, filterTag = [] }) {
         justifyContent: "space-between",
       }}
     >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end", // aligns to right
+          marginBottom: 16,
+        }}
+      >
+        <Input
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
+          placeholder="Enter Image ID"
+          prefix={<SearchOutlined style={{ color: "#aaa" }} />}
+          style={{
+            width: 360,
+            fontSize: 14,
+            borderRadius: 8,
+            backgroundColor: "#ffffff",
+            borderColor: "#444",
+            color: "#000",
+          }}
+          allowClear
+        />
+      </div>
       {loading && images.length === 0 ? (
         <div style={{ textAlign: "center", padding: "40px 0" }}>
           <Spin size="large" />
@@ -221,12 +279,11 @@ export default function ImagesTab({ model, filterTag = [] }) {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
+              marginRight: 15,
             }}
           >
             <span>Image Preview with Predictions</span>
-            <Tag color="blue" style={{ marginLeft: 8 }}>
-              ID: {selectedInputId}
-            </Tag>
+            <Tag color="blue">ID: {selectedInputId}</Tag>
           </div>
         }
         open={modalOpen}

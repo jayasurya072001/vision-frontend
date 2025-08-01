@@ -258,7 +258,7 @@ export default function Labelling() {
         style={{
           display: "flex",
           height: "90vh",
-          width: "94vw", // Changed to vw
+          width: "92vw", // Changed to vw
           overflow: "hidden", // Prevent double scrollbars
           gap: "2rem",
         }}
